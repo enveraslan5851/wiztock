@@ -47,18 +47,31 @@ angular.module('mainApp')
         };
 
         $scope.login = function () {
+<<<<<<< HEAD
             $("#nav").removeClass("invisible");
+=======
+>>>>>>> dd14514c83da3c7b204d00d7563969c1aa460684
 
             console.warn("Login Buttonuna tıklandı");
             LoginFactory.getData($scope.user_email, $scope.user_password)
                 .then(function (response) {
                     $scope.loginData = angular.copy(response);
+<<<<<<< HEAD
                     
                     if($scope.loginData.success){
                         console.warn($scope.loginData);
                         window.location.replace($scope.loginData.forwardLink);
                         
                     }else{
+=======
+
+                    if ($scope.loginData.success) {
+                        console.warn($scope.loginData);
+                        window.location.replace($scope.loginData.forwardLink);
+                        $("#nav").removeClass("invisible");
+
+                    } else {
+>>>>>>> dd14514c83da3c7b204d00d7563969c1aa460684
                         console.warn($scope.loginData);
                     }
                 });
