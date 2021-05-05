@@ -52,7 +52,15 @@ angular.module('mainApp')
             console.warn("Login Buttonuna tıklandı");
             LoginFactory.getData($scope.user_email, $scope.user_password)
                 .then(function (response) {
-                    console.warn(response);
+                    $scope.loginData = angular.copy(response);
+                    
+                    if($scope.loginData.success){
+                        console.warn($scope.loginData);
+                        window.location.replace($scope.loginData.forwardLink);
+                        
+                    }else{
+                        console.warn($scope.loginData);
+                    }
                 });
 
         }
