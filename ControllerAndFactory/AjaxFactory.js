@@ -38,18 +38,18 @@ angular.module('mainApp').factory('AjaxFactory', function($http, $q, $rootScope,
         ajax.then( function(response) {
 
             if(response.status !== 200) {
-                swal('HTTP Error !', 'Code: '+response.status+'; Text: '+response.statusText  ,'error');
+               // swal('HTTP Error !', 'Code: '+response.status+'; Text: '+response.statusText  ,'error');
             } else if (!response.data.success) {
                
                 if (alertOnFailure) {
-                    $rootScope.swal('', response.data.errMsg  ,'error');
+                   // $rootScope.swal('', response.data.errMsg  ,'error');
 //                    window.location = "http://localhost/ExAngular/#!/"
                 }
             } else {  // worked as wanted
                 if (alertOnWarning && response.data.errMsg !== null && response.data.errMsg !== undefined) {
-                    swal('', response.data.errMsg  ,'warning');
+                   // swal('', response.data.errMsg  ,'warning');
                 } else if (alertOnWarning && response.data.warnMsg !== null) {
-                     swal('', response.data.warnMsg  ,'warning');
+                    // swal('', response.data.warnMsg  ,'warning');
                 }
             }
             
@@ -64,7 +64,7 @@ angular.module('mainApp').factory('AjaxFactory', function($http, $q, $rootScope,
             console.log('@ajax, response: ', response);
             console.log('@ajax, response.data: ', response.data);
 
-            swal('HTTP Error !', 'Code: '+response.status+'; Text: '+response.statusText  ,'error');
+            //swal('HTTP Error !', 'Code: '+response.status+'; Text: '+response.statusText  ,'error');
             
             deferred.resolve(response.data); // response = response.data anymore
         });
