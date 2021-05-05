@@ -47,18 +47,18 @@ angular.module('mainApp')
         };
 
         $scope.login = function () {
-            $("#nav").removeClass("invisible");
 
             console.warn("Login Buttonuna tıklandı");
             LoginFactory.getData($scope.user_email, $scope.user_password)
                 .then(function (response) {
                     $scope.loginData = angular.copy(response);
-                    
-                    if($scope.loginData.success){
+
+                    if ($scope.loginData.success) {
                         console.warn($scope.loginData);
                         window.location.replace($scope.loginData.forwardLink);
-                        
-                    }else{
+                        $("#nav").removeClass("invisible");
+
+                    } else {
                         console.warn($scope.loginData);
                     }
                 });

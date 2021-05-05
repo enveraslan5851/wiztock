@@ -81,9 +81,9 @@
             controller: "DashboardCtrl",
             templateUrl: "view/blank.html",
           })
-          .when("/dene", {
-            controller: "DashboardCtrl",
-            templateUrl: "view/dene.html",
+          .when("/Customer", {
+            controller: "CustomerCtrl",
+            templateUrl: "view/customer.html",
           })
           .when("/404", {
             controller: "DashboardCtrl",
@@ -93,6 +93,7 @@
       });
     </script>
 
+    <!-- Controllers and Factories -->
     <script src="ControllerAndFactory/AjaxFactory.js"></script>
     <script src="ControllerAndFactory/LoginController.js"></script>
     <script src="ControllerAndFactory/LoginFactory.js"></script>
@@ -100,6 +101,8 @@
     <script src="ControllerAndFactory/RegisterFactory.js"></script>
     <script src="ControllerAndFactory/DashboardController.js"></script>
     <script src="ControllerAndFactory/DashboardFactory.js"></script>
+    <script src="ControllerAndFactory/CustomerController.js"></script>
+    <script src="ControllerAndFactory/CustomerFactory.js"></script>
   </head>
   <body ng-app="mainApp" id="page-top">
     <div>
@@ -127,7 +130,6 @@
 
           <!-- Divider -->
           <hr class="sidebar-divider my-0" />
-          DEBENENENENEN {{currentLocation}}
           <!-- Nav Item - Dashboard -->
           <li class="nav-item">
             <a class="nav-link" href="{{admin}}/Dashboard">
@@ -140,7 +142,15 @@
           <hr class="sidebar-divider" />
 
           <!-- Heading -->
-          <div class="sidebar-heading">Interface</div>
+          <div class="sidebar-heading">Customer / Supplier</div>
+
+          <!-- Nav Item - Customer -->
+          <li class="nav-item">
+            <a class="nav-link" href="{{admin}}/Customer">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Customers</span>
+            </a>
+          </li>
 
           <!-- Nav Item - Pages Collapse Menu -->
           <li class="nav-item">
@@ -152,8 +162,8 @@
               aria-expanded="true"
               aria-controls="collapseTwo"
             >
-              <i class="fas fa-fw fa-cog"></i>
-              <span>Components</span>
+              <i class="fas fa-building"></i>
+              <span>Customer</span>
             </a>
             <div
               id="collapseTwo"
@@ -162,9 +172,10 @@
               data-parent="#accordionSidebar"
             >
               <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="{{admin}}/dene">Buttons</a>
-                <a class="collapse-item" href="">Cards</a>
+                <h6 class="collapse-header">Customer</h6>
+                <a class="collapse-item" href="{{admin}}/customers"
+                  >Customers</a
+                >
               </div>
             </div>
           </li>
@@ -248,8 +259,8 @@
           <li class="nav-item">
             <a class="nav-link" href="{{dene}}">
               <i class="fas fa-fw fa-table"></i>
-              <span>Tables</span></a
-            >
+              <span>Tables</span>
+            </a>
           </li>
 
           <!-- Divider -->
