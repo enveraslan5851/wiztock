@@ -7,19 +7,20 @@
  */
 
 namespace Admin\Controller;
-//require "DB/";
-//require "Admin\Controller\CoreFunctions as CF";
-//require "Admin\Controller";
-//require "Admin\Helper\Service as HelperService";
-//require 'AppParent.php';
-//require 'DB\MysqliDb.php';
 require_once '../../DB/MysqliDb.php';
 require_once '../../vendor/autoload.php';
+require_once 'AppParent.php';
+require_once 'Employee.php';
+//use Exception;
+//use ArrayObject;
+//session_start();
 use Exception;
 use ArrayObject;
 session_start();
-class DatabaseFunc{
+class DatabaseFunc extends AppParent{
+
     public $db;
+
     public function __construct ()
     {
         $servername = "localhost";
@@ -37,19 +38,42 @@ class DatabaseFunc{
 //                'prefix' => 'my_',
                 'charset' => 'utf8'));   
     }
-    function dumpResponse ($response) {
-        if ( isset($_POST['debug']) && $_POST['debug'] === '1') {
-            echo '<pre>';
-            echo json_encode($response, JSON_PRETTY_PRINT);
-            echo '</pre>';
-        } else {
-            ob_clean();
 
-            echo json_encode($response);
+    function login(){
+        $parent = new AppParent();
+       // s("geldık");die;
+        $this->db->where('email',$_POST['mail']);
+        $this->db->where('password',$_POST['pass']);
+        $checkAdmin = $this->db->get("employee");
+        //s($checkAdmin,$_POST);die;
+        if(count($checkAdmin) ==0 ){
+            $response['data']=  "";
+            $response['success']  =false;
+            $response['errMsg']   =null;
+            $response['warnMsg']  ="Bu email adresi daha önce sistem kayıt edilmiştir.";
+            $response['errCode']  =0;
+
+            return $response;
+        } 
+        $this->db->where('company_id',$checkAdmin[0]['company_id']);
+        $company = $this->db->get("company");
+        if (count($company) == 0) {
+            $response['data']=  "";
+            $response['success']  =false;
+            $response['errMsg']   =null;
+            $response['warnMsg']  ="Company bilgisine ulaşılamadı. Yöneticinize bildiriniz.";
+            $response['errCode']  =0;
+
+            return $response;
         }
-    
-        return true;
-    }    
+        $response = Array( "success" => true,"admin" => $checkAdmin, "company" => $company , "forwardLink"=>"http://localhost/wiztock/#!/Dashboard");
+        $_SESSION["Admin_Company"] = $response;
+        
+        return $response;
+
+
+    }
+ 
     function test(){
 
         $this->db->where('email',$_POST['employeeEmail']);

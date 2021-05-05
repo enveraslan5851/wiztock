@@ -10,7 +10,8 @@ require_once 'Employee.php';
 //use ArrayObject;
 //session_start();
 
-class Index{
+/*
+class Index extends AppParent{
     public function __construct() {
         
     }
@@ -20,5 +21,12 @@ class Index{
         return true;
     }
 }
+*/
 
-s($_POST);die; 
+if (strcmp($_POST["func"] , "loginFunction") == 0) {
+    $login = new DatabaseFunc();
+    AppPArent::dumpResponse( $login->login());
+
+    
+}
+
