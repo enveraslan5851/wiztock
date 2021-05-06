@@ -1,7 +1,6 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-
   <h1 class="h3 mb-4 text-gray-800">Customer Page</h1>
 
   <!-- Customer List-->
@@ -11,50 +10,126 @@
       <h6 class="m-0 font-weight-bold text-primary">
         Customer List
         <!-- Create Customer Button -->
-        <a class="btn btn-success btn-sm" href="" data-toggle="modal" data-target="#createCustomerModal"> Add New Card </a>
+        <a style="float: right;" class="btn btn-success btn-sm" href="" data-toggle="modal" data-target="#createCustomerModal"> Add New Card </a>
       </h6>
     </div>
+    <!-- Card Body -->
+    <div class="card-body">
+      
+    </div>
+    <!-- /.Card Body-->
+  </div>
 
-    
-      <!-- Customer Create Modal-->
-      <div class="modal fade" id="createCustomerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Customer Create
-              </h5>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                  <div class="form-group">
-                    <input type="text" ng-model="company_title" class="form-control" id="company_title" placeholder="Company Name"/>
-                  </div>
-                  <div class="form-grop">
-                    <input type="text" ng-model="company_title" class="form-control" id="company_short_name" placeholder="Company Sort Name"/>
-                  </div>
-              </form>
+  <!-- Customer Create Modal-->
+  <div class="modal fade" id="createCustomerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Customer Create
+          </h5>
+          <button class="close" type="button" ng-click="cancelHandler()" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+            <div class="col-6 form-group">
+              <div class="form-check-label">Customer Type</div>
+              <div class="form-check form-check-inline">
+                <input id="corporate_customer" class="form-control-sm form-check-input" type="radio" ng-model="customer_type" checked ng-click="changeCustomerTypeHandler()">
+                <label class="form-check-label" for="customer_corporate">Corporate</label>
+              </div>
               
-            </div>
-            <div class="modal-footer">
-              <button
-                class="btn btn-secondary"
-                type="button"
-                data-dismiss="modal"
-              >
-                Cancel
-              </button>
-              <a class="btn btn-primary" href="login.html">Logout</a>
+              <div class="form-check form-check-inline">
+                <input id="individual_customer" class="form-control-sm form-check-input" type="radio" ng-model="customer_type" ng-value="{{false}}" ng-click="changeCustomerTypeHandler()" >
+                <label class="form-check-label" for="customer_individual">Individual</label>
+              </div>
             </div>
           </div>
+    
+          <div class="row" id="corporate_information1">
+            <div class="col-6 form-group">
+              <label class="display-6" for="corporate_title" class="form-label">Company Title</label>
+              <input ng-model="corporate_title" type="text" class="form-control form-control-sm" id="corporate_title" placeholder="">
+            </div>
+            <div class="col-6 form-group">
+              <label for="corporate_short_name" class="form-label">Company Short Name</label>
+              <input ng-model="corporate_short_name" type="text" class="form-control form-control-sm" id="corporate_short_name" placeholder="">
+            </div>
+          </div>
+    
+          <div class="row" id="corporate_information2">
+            <div class="col-6 form-group">
+              <label class="display-6" for="corporate_tax_number" class="form-label">Tax Number</label>
+              <input ng-model="corporate_tax_number" type="text" class="form-control form-control-sm" id="corporate_tax_number" placeholder="">
+            </div>
+            <div class="col-6 form-group">
+              <label for="corporate_tax_office" class="form-label">Tax Office</label>
+              <input ng-model="corporate_tax_office" type="text" class="form-control form-control-sm" id="corporate_tax_office" placeholder="">
+            </div>
+          </div>
+    
+          <div class="row" id="individual_information">
+            <div class="col-6 form-group">
+              <label class="display-6" for="individual_name" class="form-label">Name</label>
+              <input ng-model="individual_name" type="text" class="form-control form-control-sm" id="individual_name" placeholder="">
+            </div>
+            <div class="col-6">
+              <div class=" form-group">
+                <label for="individual_surname" class="form-label">Surname</label>
+                <input ng-model="individual_surname" type="text" class="form-control form-control-sm" id="individual_surname" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="individual_ssn" class="form-label">Social Security Number</label>
+                <input ng-model="individual_ssn" type="text" class="form-control form-control-sm" id="individual_ssn" placeholder="">
+              </div>
+            </div>
+            
+          </div>
+    
+          <div class="row">
+            <div class="col-6 form-group">
+              <label for="customer_email" class="form-label">Email</label>
+              <input ng-model="customer_email" type="text" class="form-control form-control-sm" id="customer_email" placeholder="">
+            </div>
+            <div class="col-6 form-group">
+              <label for="customer_phone" class="form-label">Phone</label>
+              <input ng-model="customer_phone" type="text" class="form-control form-control-sm" id="customer_phone" placeholder="">
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-6 form-group">
+              <label for="customer_address" class="form-label">Address</label>
+              <textarea ng-model="customer_address" class="form-control form-control-sm" id="customer_address" rows="5"></textarea>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                  <label for="customer_town" class="form-label">Town</label>
+                  <input ng-model="customer_town" type="text" class="form-control form-control-sm" id="customer_town" placeholder="">
+                </div>
+                <div class="form-group">
+                  <label for="customer_city" class="form-label">City</label>
+                  <input ng-model="customer_city" type="text" class="form-control form-control-sm" id="customer_city" placeholder="">
+                </div>
+                <div class="form-group">
+                  <label for="customer_postal_code" class="form-label">Postal Code</label>
+                  <input ng-model="customer_postal_code" type="text" class="form-control form-control-sm" id="customer_postal_code" placeholder="">
+                </div>
+            </div>
+            
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" ng-click="cancelHandler()">Cancel</button>
+          <button class="btn btn-success" type="button" ng-click="submitHandler()">Save</button>
         </div>
       </div>
     </div>
-
-    </div>
   </div>
 </div>
+
 <!-- /.container-fluid -->
