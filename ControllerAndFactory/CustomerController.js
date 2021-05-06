@@ -115,7 +115,7 @@ angular.module('mainApp')
             console.log(postData);
 
 
-            CustomerFactory.submitHandler(postData)
+            CustomerFactory.submitCustomer(postData)
                 .then(function (response) {
                     $scope.submitRes = angular.copy(response);
                     console.warn($scope.submitRes);
