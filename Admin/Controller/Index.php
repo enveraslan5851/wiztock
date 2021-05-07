@@ -6,6 +6,8 @@ require_once '../../vendor/autoload.php';
 require_once 'DatabaseFunc.php';
 require_once 'AppParent.php';
 require_once 'Employee.php';
+require_once 'Company.php';
+require_once 'Customer.php';
 //use Exception;
 //use ArrayObject;
 //session_start();
@@ -22,11 +24,14 @@ class Index extends AppParent{
     }
 }
 */
+$login = new DatabaseFunc();
+$Customer = new Customer();
 
-if (strcmp($_POST["func"] , "loginFunction") == 0) {
-    $login = new DatabaseFunc();
+if (strcmp($_POST["func"] , "loginFunction") == 0) {   
     AppPArent::dumpResponse( $login->login());
-
-    
 }
+if (strcmp($_POST["func"] , "funcInsertCustomer") == 0) {
+    AppPArent::dumpResponse( $Customer->insertCustomer());
+}
+
 
