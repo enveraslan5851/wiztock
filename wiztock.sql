@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1:3306
--- Üretim Zamanı: 06 May 2021, 13:35:28
+-- Üretim Zamanı: 08 May 2021, 10:36:53
 -- Sunucu sürümü: 5.7.31
 -- PHP Sürümü: 7.3.21
 
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `company_id` int(11) NOT NULL,
   `email` varchar(50) COLLATE utf8_turkish_ci DEFAULT NULL,
   `phone` varchar(11) COLLATE utf8_turkish_ci DEFAULT NULL,
-  `adress` varchar(150) COLLATE utf8_turkish_ci DEFAULT NULL,
+  `address` varchar(150) COLLATE utf8_turkish_ci DEFAULT NULL,
   `town` varchar(30) COLLATE utf8_turkish_ci DEFAULT NULL,
   `city` varchar(30) COLLATE utf8_turkish_ci NOT NULL,
   `postal_code` varchar(5) COLLATE utf8_turkish_ci NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `img_url` varchar(250) COLLATE utf8_turkish_ci DEFAULT NULL,
   `is_inventroy_tracking` tinyint(1) NOT NULL DEFAULT '0',
   `inital_stock_amount` double NOT NULL DEFAULT '0',
-  `is_notifiying` tinyint(1) NOT NULL DEFAULT '0',
+  `is_notifying` tinyint(1) NOT NULL DEFAULT '0',
   `nofitication_amount` double NOT NULL DEFAULT '0',
   `purchasing_price` double NOT NULL DEFAULT '0',
   `selling_price` double NOT NULL DEFAULT '0',
@@ -270,7 +270,7 @@ DROP TABLE IF EXISTS `tax`;
 CREATE TABLE IF NOT EXISTS `tax` (
   `tax_id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
-  `rate` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `rate` double NOT NULL,
   `description` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
   PRIMARY KEY (`tax_id`),
   KEY `company_id` (`company_id`)
@@ -291,31 +291,6 @@ CREATE TABLE IF NOT EXISTS `unit_of_measurement` (
   PRIMARY KEY (`uom_id`),
   KEY `company_id` (`company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
-
--- --------------------------------------------------------
-
---
--- Tablo için tablo yapısı `user`
---
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Tablo döküm verisi `user`
---
-
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`) VALUES
-(1, 'Paul', 'Doelle', 'paul@test.com'),
-(2, 'John', 'Doe', 'john@test.com'),
-(3, 'Enver', 'Smith', 'adrian@test.com'),
-(4, 'Enver', 'Smith', 'adrian@test.com');
 
 -- --------------------------------------------------------
 
