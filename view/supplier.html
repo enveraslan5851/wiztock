@@ -1,14 +1,14 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
   <!-- Page Heading -->
-  <h1 class="h3 mb-4 text-gray-800">Customer</h1>
+  <h1 class="h3 mb-4 text-gray-800">Suppliers</h1>
 
   <!-- Customer List-->
   <div class="card shadow mb-4">
     <!-- Card Header -->
     <div class="card-header py-3">
       <h5 class="m-0 font-weight-bold text-primary">
-        Customer List
+        Supplier List
         <!-- Create Customer Button -->
         <a style="float: right;" class="btn btn-success btn-sm" href="" data-toggle="modal" data-target="#createCustomerModal"> Add New Card </a>
       </h5>
@@ -37,7 +37,7 @@
               <a href="" class="btn btn-success btn-circle btn-sm" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="{{admin}}/Customer-Detail" class="btn btn-primary btn-circle btn-sm">
+              <a href="{{admin}}/Supplier-Detail" class="btn btn-primary btn-circle btn-sm">
                 <i class="fas fa-search"></i>
               </a>
               <a href="" class="btn btn-danger btn-circle btn-sm">
@@ -54,7 +54,7 @@
               <a href="" class="btn btn-success btn-circle btn-sm" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="{{admin}}/Customer-Detail" class="btn btn-primary btn-circle btn-sm">
+              <a href="{{admin}}/Supplier-Detail" class="btn btn-primary btn-circle btn-sm">
                 <i class="fas fa-search"></i>
               </a>
               <a href="" class="btn btn-danger btn-circle btn-sm">
@@ -75,7 +75,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">
-            Customer Create
+            Supplier Create
           </h5>
           <button class="close" type="button" ng-click="cancelHandler()" aria-label="Close">
             <span aria-hidden="true">×</span>
@@ -85,7 +85,7 @@
 
           <div class="row">
             <div class="col-6 form-group">
-              <div class="form-check-label">Customer Type</div>
+              <div class="form-check-label">Supplier Type</div>
               <div class="form-check form-check-inline">
                 <input id="corporate_customer" class="form-control-sm form-check-input" type="radio" ng-model="customer_type" checked ng-click="changeCustomerTypeHandler()">
                 <label class="form-check-label" for="customer_corporate">Corporate</label>

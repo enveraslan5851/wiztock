@@ -1,6 +1,6 @@
 angular.module('mainApp')
 
-    .controller('CustomerCtrl', function ($scope, $rootScope, $location, $http, CustomerFactory) {
+    .controller('SupplierCtrl', function ($scope, $rootScope, $location, $http, SupplierFactory) {
         $("#nav").removeClass("invisible");
         $("#accordionSidebar").removeClass("invisible");
 
@@ -73,8 +73,8 @@ angular.module('mainApp')
             if ($("#corporate_customer").get(0).checked === true) {
                 postData = {
                     customer_is_corporate: 1,
-                    customer_is_customer: 1,
-                    customer_is_supplier: 0,
+                    customer_is_customer: 0,
+                    customer_is_supplier: 1,
                     corporate_title: $scope.corporate_title,
                     corporate_short_name: $scope.corporate_short_name,
                     corporate_tax_number: $scope.corporate_tax_number,
@@ -93,8 +93,8 @@ angular.module('mainApp')
             } else {
                 postData = {
                     customer_is_corporate: 0,
-                    customer_is_customer: 1,
-                    customer_is_supplier: 0,
+                    customer_is_customer: 0,
+                    customer_is_supplier: 1,
                     corporate_title: null,
                     corporate_short_name: null,
                     corporate_tax_office: null,
@@ -115,7 +115,7 @@ angular.module('mainApp')
             console.log(postData);
 
 
-            CustomerFactory.submitCustomer(postData)
+            SupplierFactory.submitCustomer(postData)
                 .then(function (response) {
                     $scope.submitRes = angular.copy(response);
                     console.warn($scope.submitRes);
