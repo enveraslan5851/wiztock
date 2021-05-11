@@ -56,18 +56,63 @@ class Customer extends AppParent{
     public function __construct() {
         
     }
+    
+    function getCustomer(){
+        $db = new DatabaseFunc();
+
+        $params = array(intval($_POST["customer"]["customer_id"]));
+
+        if(strcmp($_POST["customer"]["is_corporate"] , "1")==0){
+            
+            $q = "(
+                SELECT cp.title, cp.short_name, cp.tax_office,cp.tax_number, c.customer_id, c.email , c.phone ,c.address,c.town,c.city, c.postal_code, c.is_corporate FROM customer c, corporate cp
+                    WHERE 
+                        c.customer_id=cp.corporate_id  AND c.is_corporate = 1 AND c.is_customer=1 AND c.customer_id=?
+                   
+            ) ";
+           
+        }else{
+            $q = "(
+                
+                SELECT i.name_surname, i.ssn, c.customer_id, c.email , c.phone ,c.address,c.town,c.city, c.postal_code, c.is_corporate FROM customer c, individual i
+                    WHERE 
+                        c.customer_id=i.individual_id  AND c.is_corporate = 0 AND c.is_customer=1 AND c.customer_id=?
+            )";
+        }
+
+        $results = $db->db->rawQuery ($q,$params);
+
+        if($results){
+            $response['data']=  $results ;
+            $response['success']  = true;
+            $response['errMsg']   = "";
+            $response['warnMsg']  =null;
+            $response['errCode']  =0;
+
+            return $response;
+        }else{
+            
+            $response['data']=  $results ;
+            $response['success']  = false;
+            $response['errMsg']   = $db->db->getLastError();
+            $response['warnMsg']  =null;
+            $response['errCode']  =0;
+
+            return $response;
+        }
+    }
     function getCustomerList(){
         $db = new DatabaseFunc();
 
         // will handle any SQL query
         $params = Array(10, 1, 10, 11, 2, 10);
         $q = "(
-            SELECT cp.title Name, c.customer_id, c.email , c.phone FROM customer c, corporate cp
+            SELECT cp.title Name, c.customer_id, c.email , c.phone , c.is_corporate FROM customer c, corporate cp
                 WHERE 
                     c.customer_id=cp.corporate_id  AND c.is_corporate = 1 AND c.is_customer=1
                
         ) UNION (
-            SELECT i.name_surname Name, c.customer_id, c.email , c.phone FROM customer c, individual i
+            SELECT i.name_surname Name, c.customer_id, c.email , c.phone , c.is_corporate FROM customer c, individual i
                 WHERE 
                     c.customer_id=i.individual_id  AND c.is_corporate = 0 AND c.is_customer=1
         )";
