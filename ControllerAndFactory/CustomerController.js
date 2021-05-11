@@ -110,11 +110,6 @@ angular.module('mainApp')
                     func: 'funcInsertCustomer'
                 }
             }
-
-
-            console.log(postData);
-
-
             CustomerFactory.submitCustomer(postData)
                 .then(function (response) {
                     $scope.submitRes = angular.copy(response);
@@ -123,8 +118,11 @@ angular.module('mainApp')
                 .catch(function (err) {
                     console.warn($scope.submitRes);
                 });
+            $('#createCustomerModal').modal('toggle');
             $scope.clearAllField();
-            $('#createCompanyContact').modal('toggle');
+
+
+            $scope.getCustomerList();
         }
 
         $scope.getCustomerList = function () {
@@ -133,7 +131,25 @@ angular.module('mainApp')
             };
             CustomerFactory.getCustomerList(postData)
                 .then(response => {
-                    $scope.customerList = angular.copy(response);
+                    $scope.customerList = angular.copy(response.data);
+                    console.log($scope.customerList);
+                })
+                .catch(err => {
+
+                });
+        }
+
+        $scope.editHandler = function (customer) {
+            console.log(customer);
+            $('#createCustomerModal').modal('toggle');
+
+            var postData = {
+                customer: customer,
+                func: "getCustomer"
+            };
+            CustomerFactory.getCustomer(postData)
+                .then(response => {
+                    $scope.customerList = angular.copy(response.data);
                     console.log($scope.customerList);
                 })
                 .catch(err => {

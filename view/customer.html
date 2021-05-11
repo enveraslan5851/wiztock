@@ -22,19 +22,17 @@
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
-            <th>Balance</th>
             <th style="text-align: center;">Edit/Preview/Delete</th>
 
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Ankara Mobilya</td>
-            <td>2126411735</td>
-            <td>ankara@gmail.com</td>
-            <td style="text-align: right;">50000 $</td>
+          <tr ng-repeat="customer in customerList">
+            <td>{{customer.Name}}</td>
+            <td>{{customer.phone}}</td>
+            <td>{{customer.email}}</td>
             <td style="text-align: center;">
-              <a href="" class="btn btn-success btn-circle btn-sm" >
+              <a href="" class="btn btn-success btn-circle btn-sm" ng-click="editHandler(customer)" >
                 <i class="fas fa-edit"></i>
               </a>
               <a href="{{admin}}/Customer-Detail" class="btn btn-primary btn-circle btn-sm">
@@ -45,23 +43,7 @@
               </a>
             </td>
           </tr>
-          <tr>
-            <td>Ankara Mobilya</td>
-            <td>2126411735</td>
-            <td>ankara@gmail.com</td>
-            <td style="text-align: right;">50000 $</td>
-            <td style="text-align: center;">
-              <a href="" class="btn btn-success btn-circle btn-sm" >
-                <i class="fas fa-edit"></i>
-              </a>
-              <a href="{{admin}}/Customer-Detail" class="btn btn-primary btn-circle btn-sm">
-                <i class="fas fa-search"></i>
-              </a>
-              <a href="" class="btn btn-danger btn-circle btn-sm">
-                <i class="fas fa-trash"></i>
-              </a>
-            </td>            
-          </tr>
+          
         </tbody>
       </table>
       <!-- /. Customer Table-->
