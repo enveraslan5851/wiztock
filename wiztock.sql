@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1:3306
--- Üretim Zamanı: 08 May 2021, 10:36:53
+-- Üretim Zamanı: 11 May 2021, 19:03:41
 -- Sunucu sürümü: 5.7.31
 -- PHP Sürümü: 7.3.21
 
@@ -58,9 +58,9 @@ DROP TABLE IF EXISTS `corporate`;
 CREATE TABLE IF NOT EXISTS `corporate` (
   `corporate_id` int(11) NOT NULL,
   `title` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
-  `short_name` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
-  `tax_office` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
-  `tax_number` varchar(11) COLLATE utf8_turkish_ci NOT NULL,
+  `short_name` varchar(100) COLLATE utf8_turkish_ci DEFAULT NULL,
+  `tax_office` varchar(50) COLLATE utf8_turkish_ci DEFAULT NULL,
+  `tax_number` varchar(11) COLLATE utf8_turkish_ci DEFAULT NULL,
   PRIMARY KEY (`corporate_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `phone` varchar(11) COLLATE utf8_turkish_ci DEFAULT NULL,
   `address` varchar(150) COLLATE utf8_turkish_ci DEFAULT NULL,
   `town` varchar(30) COLLATE utf8_turkish_ci DEFAULT NULL,
-  `city` varchar(30) COLLATE utf8_turkish_ci NOT NULL,
-  `postal_code` varchar(5) COLLATE utf8_turkish_ci NOT NULL,
+  `city` varchar(30) COLLATE utf8_turkish_ci DEFAULT NULL,
+  `postal_code` varchar(5) COLLATE utf8_turkish_ci DEFAULT NULL,
   `is_corporate` tinyint(1) NOT NULL DEFAULT '1',
   `is_customer` tinyint(1) NOT NULL DEFAULT '1',
   `is_supplier` tinyint(1) DEFAULT NULL,
@@ -141,7 +141,7 @@ DROP TABLE IF EXISTS `individual`;
 CREATE TABLE IF NOT EXISTS `individual` (
   `individual_id` int(11) NOT NULL,
   `name_surname` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
-  `ssn` varchar(11) COLLATE utf8_turkish_ci NOT NULL,
+  `ssn` varchar(11) COLLATE utf8_turkish_ci DEFAULT NULL,
   PRIMARY KEY (`individual_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
@@ -154,6 +154,7 @@ CREATE TABLE IF NOT EXISTS `individual` (
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE IF NOT EXISTS `product` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) NOT NULL,
   `product_category_id` int(11) NOT NULL,
   `product_name` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
   `uom_id` int(11) NOT NULL,
@@ -170,7 +171,8 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`product_id`),
   KEY `product_category_id` (`product_category_id`),
   KEY `uom_id` (`uom_id`),
-  KEY `tax_id` (`tax_id`)
+  KEY `tax_id` (`tax_id`),
+  KEY `company_id` (`company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 -- --------------------------------------------------------
@@ -218,9 +220,9 @@ CREATE TABLE IF NOT EXISTS `shipment` (
   `company_id` int(11) NOT NULL,
   `shipment_type_id` int(11) NOT NULL,
   `freight_bill_number` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
-  `source_warehouse_id` int(11) NOT NULL,
-  `destination_warehouse_id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
+  `source_warehouse_id` int(11) DEFAULT NULL,
+  `destination_warehouse_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
   `issue_date` datetime NOT NULL,
   `shipment_date` datetime NOT NULL,
   PRIMARY KEY (`shipment_id`),
@@ -351,7 +353,8 @@ ALTER TABLE `individual`
 ALTER TABLE `product`
   ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`product_category_id`) REFERENCES `product_category` (`product_category_id`),
   ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`uom_id`) REFERENCES `unit_of_measurement` (`uom_id`),
-  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`tax_id`) REFERENCES `tax` (`tax_id`);
+  ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`tax_id`) REFERENCES `tax` (`tax_id`),
+  ADD CONSTRAINT `product_ibfk_4` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`);
 
 --
 -- Tablo kısıtlamaları `product_category`
