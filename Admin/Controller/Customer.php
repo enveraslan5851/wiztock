@@ -56,6 +56,43 @@ class Customer extends AppParent{
     public function __construct() {
         
     }
+    function getCustomerList(){
+        $db = new DatabaseFunc();
+
+        // will handle any SQL query
+        $params = Array(10, 1, 10, 11, 2, 10);
+        $q = "(
+            SELECT cp.title Name, c.customer_id, c.email , c.phone FROM customer c, corporate cp
+                WHERE 
+                    c.customer_id=cp.corporate_id  AND c.is_corporate = 1 AND c.is_customer=1
+               
+        ) UNION (
+            SELECT i.name_surname Name, c.customer_id, c.email , c.phone FROM customer c, individual i
+                WHERE 
+                    c.customer_id=i.individual_id  AND c.is_corporate = 0 AND c.is_customer=1
+        )";
+        $results = $db->db->rawQuery ($q);
+       // s ($results);die; // contains Array of returned rows
+        if($results){
+            $response['data']=  $results ;
+            $response['success']  = true;
+            $response['errMsg']   = "";
+            $response['warnMsg']  =null;
+            $response['errCode']  =0;
+
+            return $response;
+        }else{
+            
+            $response['data']=  $results ;
+            $response['success']  = false;
+            $response['errMsg']   = $db->db->getLastError();
+            $response['warnMsg']  =null;
+            $response['errCode']  =0;
+
+            return $response;
+        }
+
+    }
     function insertCustomer(){
 
         $db = new DatabaseFunc();
@@ -77,7 +114,7 @@ class Customer extends AppParent{
             "company_id" =>  $this->getCompany_id(),
             "email"      => $this->getEmail(),
             "phone"      => $this->getPhone(),
-            "adress"     => $this->getAdress(),
+            "address"     => $this->getAdress(),
             "town"       =>	$this->getTown(),
             "city"	     => $this->getCity(),
             "postal_code"=>	$this->getPostal_code(),
@@ -101,7 +138,9 @@ class Customer extends AppParent{
 
             return $response;
         }else{
+
             $this->setCustomer_id ($customer);
+
             if ($this->getIs_corporate() == 0) { // bireysel firmaysa
                 $individual = new Individual();
                 $individual->setIndividualID($this->getCustomer_id());

@@ -33,5 +33,9 @@ if (strcmp($_POST["func"] , "loginFunction") == 0) {
 if (strcmp($_POST["func"] , "funcInsertCustomer") == 0) {
     AppPArent::dumpResponse( $Customer->insertCustomer());
 }
+if (strcmp($_POST["func"] , "getCustomerList") == 0) {
+    AppPArent::dumpResponse( $Customer->getCustomerList());
+}
+
 
 
