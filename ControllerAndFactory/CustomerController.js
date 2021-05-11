@@ -17,12 +17,12 @@ angular.module('mainApp')
 
         $scope.init = function () {
 
-            console.warn("sdfsdfsdfsdfsdfsdfsd");
+            $scope.getCustomerList();
 
-            document.body.classList.remove("register-page");
-            document.body.classList.remove("login-page");
-            document.body.classList.add("hold-transition");
-            document.body.classList.add("sidebar-mini");
+            //document.body.classList.remove("register-page");
+            //document.body.classList.remove("login-page");
+            //document.body.classList.add("hold-transition");
+            //document.body.classList.add("sidebar-mini");
 
 
         };
@@ -121,9 +121,24 @@ angular.module('mainApp')
                     console.warn($scope.submitRes);
                 })
                 .catch(function (err) {
-
+                    console.warn($scope.submitRes);
                 });
             $scope.clearAllField();
+            $('#createCompanyContact').modal('toggle');
+        }
+
+        $scope.getCustomerList = function () {
+            var postData = {
+                func: "getCustomerList"
+            };
+            CustomerFactory.getCustomerList(postData)
+                .then(response => {
+                    $scope.customerList = angular.copy(response);
+                    console.log($scope.customerList);
+                })
+                .catch(err => {
+
+                });
         }
 
         $scope.createContactCancelHandler = function () {
@@ -135,4 +150,6 @@ angular.module('mainApp')
             $('#createCompanyContact').modal('toggle');
             $scope.clearAllField();
         }
+
+        $scope.init();
     });

@@ -74,8 +74,8 @@
           .when("/Dashboard", {controller: "DashboardCtrl", templateUrl: "view/blank.html", })
           .when("/Customer", {controller: "CustomerCtrl", templateUrl: "view/customer.html", })
           .when("/Customer-Detail", {controller: "CustomerCtrl", templateUrl: "view/customer-detail.html", })
-          .when("/Supplier", {controller: "CustomerCtrl", templateUrl: "view/supplier.html", })
-          .when("/Supplier-Detail", {controller: "CustomerCtrl", templateUrl: "view/supplier-detail.html", })
+          .when("/Supplier", {controller: "SupplierCrl", templateUrl: "view/supplier.html", })
+          .when("/Supplier-Detail", {controller: "SupplierCrl", templateUrl: "view/supplier-detail.html", })
           .when("/404", {controller: "DashboardCtrl", templateUrl: "view/404.html", })
           .otherwise({ redirectTo: "/Dashboard" });
       });

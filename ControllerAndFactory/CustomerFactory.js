@@ -26,5 +26,17 @@ angular.module('mainApp')
             */
         };
 
+        CustomerFactory.getCustomerList = function (postData) {
+            var deferred = $q.defer();
+
+            var url = 'Admin/Controller/Index.php';
+            AjaxFactory.ajax(url, postData, true, true, true).then(function (content) {
+                deferred.resolve(content);
+            });
+
+            return deferred.promise;
+
+        }
+
         return CustomerFactory;
     });
