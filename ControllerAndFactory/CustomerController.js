@@ -139,8 +139,13 @@ angular.module('mainApp')
                 });
         }
 
+        $scope.createHandler = function () {
+            $('#createCustomerModal').modal('toggle');
+            $scope.customerModalTitle = "Create Customer";
+        }
+
         $scope.editHandler = function (customer) {
-            console.log(customer);
+            $scope.customerModalTitle = "Edit Customer";
             $('#createCustomerModal').modal('toggle');
 
             var postData = {
@@ -148,13 +153,42 @@ angular.module('mainApp')
                 func: "getCustomer"
             };
             CustomerFactory.getCustomer(postData)
-                .then(response => {
-                    $scope.customerList = angular.copy(response.data);
-                    console.log($scope.customerList);
+                .then(function (response) {
+                    $scope.customer = angular.copy(response.data[0]);
+                    console.log($scope.customer);
+
+                    $scope.corporate_title = $scope.customer.title;
+                    $scope.corporate_short_name = $scope.customer.short_name;
+                    $scope.corporate_tax_number = $scope.customer.tax_number;
+                    $scope.corporate_tax_office = $scope.customer.tax_office;
+                    var name = $scope.customer.name_surname.split(" ");
+                    $scope.individual_name = $scope.customer.name_surname.split(" ").slice(0, -1).join();
+                    $scope.individual_surname = name[name.length - 1];
+                    $scope.individual_ssn = $scope.customer.ssn;
+                    $scope.customer_email = $scope.customer.email;
+                    $scope.customer_phone = $scope.customer.phone;
+                    $scope.customer_address = $scope.customer.address;
+                    $scope.customer_town = $scope.customer.town;
+                    $scope.customer_city = $scope.customer.city;
+                    $scope.customer_postal_code = $scope.customer.postal_code;
+
+
+
+                    if ($scope.customer.is_corporate === 1) {
+                        $("#corporate_customer").prop('checked', true);
+                        $("#individual_customer").prop('checked', false)
+                        $scope.changeCustomerTypeHandler();
+                    } else {
+                        $("#individual_customer").prop('checked', true);
+                        $("#corporate_customer").prop('checked', false);
+                        $scope.changeCustomerTypeHandler();
+                    }
+
                 })
                 .catch(err => {
 
                 });
+
         }
 
         $scope.createContactCancelHandler = function () {
