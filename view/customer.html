@@ -35,7 +35,7 @@
               <a href="" class="btn btn-success btn-circle btn-sm" ng-click="editHandler(customer)" >
                 <i class="fas fa-edit"></i>
               </a>
-              <a href="{{admin}}/Customer-Detail" class="btn btn-primary btn-circle btn-sm">
+              <a href="{{admin}}/Customer-Detail/id=5 && name=mikail && Surname=veli" class="btn btn-primary btn-circle btn-sm">
                 <i class="fas fa-search"></i>
               </a>
               <a href="" class="btn btn-danger btn-circle btn-sm">
@@ -68,7 +68,7 @@
           <div class="row">
             <div class="col-6 form-group">
               <div class="form-check-label">Customer Type</div>
-              <div class="form-check form-check-inline">
+           <!--   <div class="form-check form-check-inline">
                 <input id="corporate_customer" class="form-control-sm form-check-input" type="radio" ng-model="customer_type" checked ng-click="changeCustomerTypeHandler()">
                 <label class="form-check-label" for="customer_corporate">Corporate</label>
               </div>
@@ -76,7 +76,15 @@
               <div class="form-check form-check-inline">
                 <input id="individual_customer" class="form-control-sm form-check-input" type="radio" ng-model="customer_type" ng-value="{{false}}" ng-click="changeCustomerTypeHandler()" >
                 <label class="form-check-label" for="customer_individual">Individual</label>
-              </div>
+              </div>-->
+  <div class="form-group form-check" ng-click="check1()">
+      <input type="checkbox" class="form-check-input" id="corporate_customer" >
+      <label class="form-check-label" for="exampleCheck1">Corporate</label>
+  </div>
+  <div class="form-group form-check" ng-click="check2()">
+    <input type="checkbox" class="form-check-input" id="individual_customer" ng-click="check2()">
+    <label class="form-check-label" for="exampleCheck1">Individual</label>
+</div>
             </div>
           </div>
     

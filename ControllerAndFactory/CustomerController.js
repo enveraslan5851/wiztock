@@ -1,6 +1,8 @@
 angular.module('mainApp')
 
-    .controller('CustomerCtrl', function ($scope, $rootScope, $location, $http, CustomerFactory) {
+    .controller('CustomerCtrl', function ($scope, $rootScope, $location, $http, CustomerFactory, $routeParams) {
+
+        console.warn("TTTTTTTTTTTTTTTTTTTTTT      " , $routeParams.id);
         $("#nav").removeClass("invisible");
         $("#accordionSidebar").removeClass("invisible");
 
@@ -29,8 +31,9 @@ angular.module('mainApp')
 
 
         $scope.changeCustomerTypeHandler = function () {
+           // $("#corporate_customer").prop("checked") === true
 
-            if ($("#corporate_customer").get(0).checked === true) {
+            if ($("#corporate_customer").prop("checked") === true) {
                 console.log("Corporate");
                 $("#individual_information").hide();
                 $("#corporate_information1").show();
@@ -143,7 +146,33 @@ angular.module('mainApp')
             $('#createCustomerModal').modal('toggle');
             $scope.customerModalTitle = "Create Customer";
         }
+        $scope.check1 = function(){
+            console.warn("tıklandım");
+                if($("#individual_customer").prop("checked") === true){
+                    $("#individual_customer").prop("checked",false);
+                }
+                if( $("#corporate_customer").prop("checked") === false ){
+                    $("#corporate_customer").prop("checked",true);
+                    $("#individual_customer").prop("checked", false) ;
+                }
+                $scope.changeCustomerTypeHandler();
+               
+            
+        }
+        $scope.check2 = function(){
+            console.warn("tıklandım");
+                if($("#corporate_customer").prop("checked") === true){
+                    $("#corporate_customer").prop("checked",false);
+                }
 
+                if( $("#individual_customer").prop("checked") === false ){
+                    $("#individual_customer").prop("checked",true);
+                    $("#corporate_customer").prop("checked", false) ;
+                }
+                $scope.changeCustomerTypeHandler();
+               
+            
+        }
         $scope.editHandler = function (customer) {
             $scope.customerModalTitle = "Edit Customer";
             $('#createCustomerModal').modal('toggle');
@@ -161,9 +190,13 @@ angular.module('mainApp')
                     $scope.corporate_short_name = $scope.customer.short_name;
                     $scope.corporate_tax_number = $scope.customer.tax_number;
                     $scope.corporate_tax_office = $scope.customer.tax_office;
-                    var name = $scope.customer.name_surname.split(" ");
-                    $scope.individual_name = $scope.customer.name_surname.split(" ").slice(0, -1).join();
-                    $scope.individual_surname = name[name.length - 1];
+                    if($scope.customer.name_surname){
+                        var name = $scope.customer.name_surname.split(" ");
+                        $scope.individual_name = $scope.customer.name_surname.split(" ").slice(0, -1).join();
+                        $scope.individual_surname = name[name.length - 1];
+                    }
+                    
+                    
                     $scope.individual_ssn = $scope.customer.ssn;
                     $scope.customer_email = $scope.customer.email;
                     $scope.customer_phone = $scope.customer.phone;
@@ -185,9 +218,7 @@ angular.module('mainApp')
                     }
 
                 })
-                .catch(err => {
-
-                });
+                
 
         }
 

@@ -73,7 +73,7 @@
           //.when('/Dashboard',{controller:"DashboardCtrl",templateUrl:'views/Dashboard.html'})
           .when("/Dashboard", {controller: "DashboardCtrl", templateUrl: "view/blank.html", })
           .when("/Customer", {controller: "CustomerCtrl", templateUrl: "view/customer.html", })
-          .when("/Customer-Detail", {controller: "CustomerCtrl", templateUrl: "view/customer-detail.html", })
+          .when("/Customer-Detail/:id", {controller: "CustomerCtrl", templateUrl: "view/customer-detail.html", })
           .when("/Supplier", {controller: "SupplierCtrl", templateUrl: "view/supplier.html", })
           .when("/Supplier-Detail", {controller: "SupplierCtrl", templateUrl: "view/supplier-detail.html", })
           .when("/404", {controller: "DashboardCtrl", templateUrl: "view/404.html", })
